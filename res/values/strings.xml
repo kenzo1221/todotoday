@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">todotoday</string>
+    <string name="create_todo">新規作成</string>
+    <string name="str_cont">内容</string>
+    <string name="str_kind">種類</string>
+    <string name="str_priority">優先度</string>
+    <string name="str_today">今日中</string>
+    <string-array name="kind_values">
+        <item>考える</item>
+        <item>手を動かす</item>
+    </string-array>
+    <string-array name="priority_values">
+        <item>最高</item>
+        <item>高</item>
+        <item>中</item>
+        <item>低</item>
+    </string-array>
+    <string-array name="today_values">
+        <item>本日中</item>
+        <item>継続</item>
+    </string-array>
+</resources>

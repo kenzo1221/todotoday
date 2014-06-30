@@ -1,0 +1,8 @@
+<resources>
+    <color name="background">#EEF5FB</color>
+    <color name="panel_light">#BCD7F0</color>
+    <color name="panel_dark">#74ACDF</color>
+    <color name="button_def">#FFFFFF</color>
+    <color name="button_dwn">#CDE1F4</color>
+    <color name="button_sdw">#97A9BA</color>
+</resources> 
