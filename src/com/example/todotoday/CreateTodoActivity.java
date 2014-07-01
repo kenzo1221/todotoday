@@ -1,21 +1,19 @@
 package com.example.todotoday;
 
 import static com.example.todotoday.database.DataBaseConsts.*;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
-
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.SpannableStringBuilder;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.todotoday.database.TodoTableHelper;
+import com.example.todotoday.util.TodayStringGetter;
 
 public class CreateTodoActivity extends ActionBarActivity {
     private SQLiteDatabase _db;
@@ -24,14 +22,9 @@ public class CreateTodoActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_todo);
-        initDBHelper();
+        _db = TodoTableHelper.initDataBase(this);
         createComponents();
         setButtonProcedure();
-    }
-
-    private void initDBHelper() {
-        TodoTableHelper helper = new TodoTableHelper(this);
-        _db = helper.getWritableDatabase();
     }
     
     private void createComponents() {
@@ -63,22 +56,22 @@ public class CreateTodoActivity extends ActionBarActivity {
 
     private void saveNewTodo() {
         ContentValues vals = new ContentValues();
-        vals.put(COL_CONTENT, "test");
+        vals.put(COL_CONTENT, getEditTextValue(R.id.content));
         vals.put(COL_KIND, getSpinnerValue(R.id.kind));
         vals.put(COL_PRIORITY, getSpinnerValue(R.id.priority));
         vals.put(COL_TODAY, getSpinnerValue(R.id.today));
-        vals.put(COL_DATE, getTodayString());
+        vals.put(COL_DATE, TodayStringGetter.execute());
         _db.insert(TBL_TODO, null, vals);
     }
 
     private int getSpinnerValue(int id) {
-        Spinner spinner = (Spinner)findViewById(id);
+        Spinner spinner = (Spinner) findViewById(id);
         return spinner.getSelectedItemPosition();
     }
-    
-    private String getTodayString() {
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.JAPAN);
-        return sdf.format(cal.getTime());
+
+    private String getEditTextValue(int id) {
+        EditText editText = (EditText) findViewById(id);
+        SpannableStringBuilder sb = (SpannableStringBuilder) editText.getText();
+        return sb.toString();
     }
 }

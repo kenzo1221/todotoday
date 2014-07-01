@@ -8,8 +8,7 @@
 
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        style="@style/layout_w_m_h_m"
         android:background="@color/background"
         android:orientation="horizontal">
         <Button
@@ -33,4 +32,8 @@
             android:layout_weight="1">
         </Button>
     </LinearLayout>
+
+    <ListView
+        style="@style/layout_w_m_h_m"
+        android:id="@+id/list_view"/>
 </FrameLayout>

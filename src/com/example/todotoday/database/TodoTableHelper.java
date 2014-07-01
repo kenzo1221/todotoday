@@ -13,8 +13,12 @@ public class TodoTableHelper extends SQLiteOpenHelper {
             + "today integer not null, "
             + "date text not null)";
 
-    public TodoTableHelper(Context context) {
+    private TodoTableHelper(Context context) {
         super(context, "todo_table", null, 1);
+    }
+
+    public static SQLiteDatabase initDataBase(Context context) {
+        return (new TodoTableHelper(context)).getWritableDatabase();
     }
 
     @Override

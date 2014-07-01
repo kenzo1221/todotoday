@@ -1,6 +1,13 @@
 package com.example.todotoday;
 
+import static com.example.todotoday.database.DataBaseConsts.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -9,13 +16,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import com.example.todotoday.database.OrderConverter;
+import com.example.todotoday.database.TodoStruct;
+import com.example.todotoday.database.TodoTableHelper;
+import com.example.todotoday.util.TodayStringGetter;
 
 public class MainActivity extends ActionBarActivity {
+    private SQLiteDatabase _db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        _db = TodoTableHelper.initDataBase(this);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -66,4 +81,33 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    private void createTodoList() {
+        ListView listView = (ListView) findViewById(R.id.list_view);
+//        TodoAdapter adapter = 
+    }
+
+    private List<TodoStruct> doLoad() {
+        String order = getOrderString();
+        Cursor cursor = null;
+        try {
+            cursor = _db.query(TBL_TODO,
+                    new String[]{ COL_CONTENT, COL_KIND, COL_PRIORITY, COL_TODAY },
+                    "today = ?", new String[]{ TodayStringGetter.execute() },
+                    null, null, order, null);
+            List<TodoStruct> list = new ArrayList<TodoStruct>();
+            while (cursor.moveToNext()) {
+                list.add(new TodoStruct(cursor));
+            }
+            return list;
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+    }
+    
+    private String getOrderString() {
+        //TODO ボタンの状態から順序を取得
+        return OrderConverter.getOrderString(null, null);
+    }
 }
