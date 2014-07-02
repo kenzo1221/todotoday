@@ -48,7 +48,7 @@ public class CreateTodoActivity extends ActionBarActivity {
         Button newBtn = (Button) findViewById(R.id.btn_create);
         newBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {System.out.println("click");
                 saveNewTodo();
             }
         });

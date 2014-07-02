@@ -5,4 +5,13 @@
     <color name="button_def">#FFFFFF</color>
     <color name="button_dwn">#CDE1F4</color>
     <color name="button_sdw">#97A9BA</color>
+
+    <color name="urgent_def">#e79294</color>
+    <color name="urgent_dwn">#cf8385</color>
+    <color name="high_def">#f0bcbd</color>
+    <color name="high_dwn">#d8a9aa</color>
+    <color name="middle_def">#f0efbc</color>
+    <color name="middle_dwn">#d8d7a9</color>
+    <color name="low_def">#bcd7f0</color>
+    <color name="low_dwn">#a9c1d8</color>
 </resources> 

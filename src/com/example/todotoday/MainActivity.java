@@ -55,11 +55,11 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
         if (id == R.id.create_todo) {
             Intent intent = new Intent(this, CreateTodoActivity.class);
-            startActivity(intent); 
+            startActivity(intent);
             return true;
         } else if (id == R.id.test) {
             Intent intent = new Intent(this, TestSettingsActivity.class);
-            startActivity(intent); 
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -81,9 +81,16 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        createTodoList();
+        super.onResume();
+    }
+
     private void createTodoList() {
         ListView listView = (ListView) findViewById(R.id.list_view);
-//        TodoAdapter adapter = 
+        TodoAdapter adapter = new TodoAdapter(this, android.R.layout.simple_list_item_1, doLoad());
+        listView.setAdapter(adapter);
     }
 
     private List<TodoStruct> doLoad() {
@@ -91,13 +98,14 @@ public class MainActivity extends ActionBarActivity {
         Cursor cursor = null;
         try {
             cursor = _db.query(TBL_TODO,
-                    new String[]{ COL_CONTENT, COL_KIND, COL_PRIORITY, COL_TODAY },
-                    "today = ?", new String[]{ TodayStringGetter.execute() },
+                    new String[] { COL_CONTENT, COL_KIND, COL_PRIORITY, COL_TODAY },
+                    "today = ?", new String[] { TodayStringGetter.execute() },
                     null, null, order, null);
             List<TodoStruct> list = new ArrayList<TodoStruct>();
             while (cursor.moveToNext()) {
                 list.add(new TodoStruct(cursor));
             }
+            System.out.println("count:" + String.valueOf(list.size()));
             return list;
         } finally {
             if (cursor != null) {
@@ -105,9 +113,9 @@ public class MainActivity extends ActionBarActivity {
             }
         }
     }
-    
+
     private String getOrderString() {
         //TODO ボタンの状態から順序を取得
-        return OrderConverter.getOrderString(null, null);
+        return OrderConverter.getOrderString(new ArrayList<String>(), new ArrayList<String>());
     }
 }

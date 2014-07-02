@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/layout_w_m_h_w"
+    android:layout_margin="4dp" >
+
+    <TextView
+        android:id="@+id/text_content"
+        style="@style/layout_w_w_h_w"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:textSize="18sp" />
+
+</RelativeLayout>
