@@ -57,10 +57,6 @@ public class MainActivity extends ActionBarActivity {
             Intent intent = new Intent(this, CreateTodoActivity.class);
             startActivity(intent);
             return true;
-        } else if (id == R.id.test) {
-            Intent intent = new Intent(this, TestSettingsActivity.class);
-            startActivity(intent);
-            return true;
         }
         return super.onOptionsItemSelected(item);
     }
